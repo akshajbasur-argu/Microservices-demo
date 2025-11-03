@@ -1,23 +1,26 @@
 package com.example.course;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/course")
-@RequiredArgsConstructor
-public class Controller {
+public class CourseController {
 
     private final CourseService service;
 
+    public CourseController(CourseService service) {
+        this.service = service;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Course> getCourse(@PathVariable long id){
+        return new ResponseEntity<>(service.getCourse(id),HttpStatus.OK);
+    }
     @GetMapping("display")
     public ResponseEntity<List<Course>> getAllCourses(){
         return new ResponseEntity<>(service.getAllCourses(), HttpStatus.OK);

@@ -13,4 +13,8 @@ public class StudentService {
     public List<Student> getAllStudents(){
         return studentRepo.findAll();
     }
+
+    public Student getStudent(long id) {
+        return studentRepo.findById(id).orElseThrow(RuntimeException::new);
+    }
 }
